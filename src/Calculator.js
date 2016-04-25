@@ -135,7 +135,8 @@ function execute(postfix) {
 
     const isNumber = /\d/.test(operatorOrNumber);
     if (isNumber) {
-      stackOfTemporalComputations.unshift(operatorOrNumber);
+      const actualNumber = +operatorOrNumber;
+      stackOfTemporalComputations.unshift(actualNumber);
       continue;
     }
 
@@ -146,8 +147,8 @@ function execute(postfix) {
       };
     }
 
-    const y = +stackOfTemporalComputations.shift();
-    const x = +stackOfTemporalComputations.shift();
+    const y = stackOfTemporalComputations.shift();
+    const x = stackOfTemporalComputations.shift();
 
     if (operatorOrNumber === PLUS) {
       stackOfTemporalComputations.unshift(x + y);

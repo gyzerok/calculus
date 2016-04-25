@@ -111,6 +111,13 @@ describe('Calculator', () => {
       expect(actual).toEqual(expected);
     });
 
+    it('should work for single-number expression', () => {
+      const expected = { result: 42 };
+      const actual = Calculator.evaluate('42');
+
+      expect(actual).toEqual(expected);
+    });
+
     it('should use correct operator precedence', () => {
       const expected = { result: 7 };
       const actual = Calculator.evaluate('1 + 2 * 3');
