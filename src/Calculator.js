@@ -23,10 +23,10 @@ const alphabet = [
 ];
 
 module.exports = {
-  evaluate: evaluate,
-  parse: parse,
-  infixToPosfix: infixToPosfix,
-  execute: execute,
+  evaluate,
+  parse,
+  infixToPostfix,
+  execute,
 };
 
 function evaluate(str) {
@@ -35,7 +35,7 @@ function evaluate(str) {
     return parsed;
   }
 
-  const postfix = infixToPosfix(parsed.tokens);
+  const postfix = infixToPostfix(parsed.tokens);
   if (postfix.error) {
     return postfix;
   }
@@ -54,32 +54,31 @@ function parse(str) {
     };
   }
 
-  const result = splittedStr
-    .reduce((acc, char) => {
-      const isDigit = /\d/.test(char);
-      if (!isDigit) {
-        return {
-          numberAccumulator: '',
-          tokens: acc.tokens
-            .concat(acc.numberAccumulator)
-            .concat(char),
-        };
-      }
+  let numberAccumulator = [];
+  const tokens = [];
 
-      return {
-        numberAccumulator: acc.numberAccumulator + char,
-        tokens: acc.tokens,
-      };
-    }, { numberAccumulator: '', tokens: [] });
+  for (let i = 0; i < splittedStr.length; i++) {
+    const char = splittedStr[i];
+
+    const isDigit = /\d/.test(char);
+    if (isDigit) {
+      numberAccumulator.push(char);
+      continue;
+    }
+
+    tokens.push(numberAccumulator.join(''))
+    tokens.push(char);
+    numberAccumulator = [];
+  }
 
   return {
-    tokens: result.tokens
-      .concat(result.numberAccumulator)
-      .filter(x => x !== '' && x !== ' ')
+    tokens: tokens
+      .concat(numberAccumulator.join(''))
+      .filter(x => x !== '' && x !== ' '),
   };
 }
 
-function infixToPosfix(tokens) {
+function infixToPostfix(tokens) {
   const rpn = [];
   const operatorStack = [];
 
@@ -124,7 +123,9 @@ function infixToPosfix(tokens) {
     };
   }
 
-  return { rpn: rpn.concat(operatorStack) };
+  return {
+    rpn: rpn.concat(operatorStack),
+  };
 }
 
 function execute(postfix) {

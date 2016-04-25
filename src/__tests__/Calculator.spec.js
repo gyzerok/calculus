@@ -42,12 +42,12 @@ describe('Calculator', () => {
     });
   });
 
-  describe('infixToPosfix', () => {
+  describe('infixToPostfix', () => {
     it('should work without parens', () => {
       const expected = {
         rpn: ['7', '2', '3', '*', '-'],
       };
-      const actual = Calculator.infixToPosfix('7 - 2 * 3'.split(' '));
+      const actual = Calculator.infixToPostfix('7 - 2 * 3'.split(' '));
 
       expect(actual).toEqual(expected);
     });
@@ -56,7 +56,7 @@ describe('Calculator', () => {
       const expected = {
         rpn: ['1', '2', '+', '4', '*', '3', '+'],
       };
-      const actual = Calculator.infixToPosfix('( 1 + 2 ) * 4 + 3'.split(' '));
+      const actual = Calculator.infixToPostfix('( 1 + 2 ) * 4 + 3'.split(' '));
 
       expect(actual).toEqual(expected);
     });
@@ -65,7 +65,7 @@ describe('Calculator', () => {
       const expected = {
         error: 'Incorrect parens',
       };
-      const actual = Calculator.infixToPosfix('1 + 2 ) * 4 + 3'.split(' '));
+      const actual = Calculator.infixToPostfix('1 + 2 ) * 4 + 3'.split(' '));
 
       expect(actual).toEqual(expected);
     });
@@ -74,7 +74,7 @@ describe('Calculator', () => {
       const expected = {
         error: 'Incorrect parens',
       };
-      const actual = Calculator.infixToPosfix('( 1 + 2 * 4 + 3'.split(' '));
+      const actual = Calculator.infixToPostfix('( 1 + 2 * 4 + 3'.split(' '));
 
       expect(actual).toEqual(expected);
     });
