@@ -139,7 +139,8 @@ function execute(postfix) {
       continue;
     }
 
-    if (stackOfTemporalComputations.length < 2) {
+    const canExecuteBinaryOperation = stackOfTemporalComputations.length >= 2;
+    if (!canExecuteBinaryOperation) {
       return {
         error: 'Invalid expression',
       };
