@@ -35,12 +35,12 @@ function evaluate(str) {
     return parsed;
   }
 
-  const reversed = infixToPosfix(parsed.tokens);
-  if (reversed.error) {
-    return reversed;
+  const postfix = infixToPosfix(parsed.tokens);
+  if (postfix.error) {
+    return postfix;
   }
 
-  return execute(reversed.rpn);
+  return execute(postfix.rpn);
 }
 
 function parse(str) {
