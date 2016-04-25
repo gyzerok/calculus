@@ -12,7 +12,7 @@
     "node": "4.2.1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Fedor Nezhivoi <gyzerok@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "expect": "^1.18.0",
