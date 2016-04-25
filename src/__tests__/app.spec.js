@@ -44,7 +44,7 @@ describe('app', () => {
     it('should return error if no query provided', done => {
       request(app)
         .get('/calculus')
-        .expect(400, {
+        .expect(200, {
           error: true,
           message: 'No query provided',
         })

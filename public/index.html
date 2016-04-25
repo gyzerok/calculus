@@ -35,13 +35,14 @@
 
         $.ajax(opts)
           .done(function onSuccess(data) {
-            $result.text(data.result);
+            if (data.error) {
+              $result.text(data.message);
+            }
+            else {
+              $result.text(data.result);
+            }
           })
           .fail(function (res) {
-            if (res.status === 400) {
-              return $result.text(res.responseJSON.message);
-            }
-
             $result.text('Unexpected error');
           });
 

@@ -13,12 +13,10 @@ app.get('/calculus', (req, res) => {
   const input = req.query.query;
 
   if (!input) {
-    return res
-      .status(400)
-      .json({
-        error: true,
-        message: 'No query provided',
-      });
+    return res.json({
+      error: true,
+      message: 'No query provided',
+    });
   }
 
   const trimmedInput = input.trim();
@@ -28,12 +26,10 @@ app.get('/calculus', (req, res) => {
 
   const calculated = Calculator.evaluate(expression);
   if (calculated.error) {
-    return res
-      .status(400)
-      .json({
-        error: true,
-        message: calculated.error,
-      });
+    return res.json({
+      error: true,
+      message: calculated.error,
+    });
   }
 
   res.json({
