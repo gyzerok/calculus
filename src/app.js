@@ -16,7 +16,8 @@ app.get('/calculus', (req, res) => {
     return res
       .status(400)
       .json({
-        error: 'No query provided',
+        error: true,
+        message: 'No query provided',
       });
   }
 
@@ -30,11 +31,13 @@ app.get('/calculus', (req, res) => {
     return res
       .status(400)
       .json({
-        error: calculated.error,
+        error: true,
+        message: calculated.error,
       });
   }
 
   res.json({
+    error: false,
     result: calculated.result,
   });
 });

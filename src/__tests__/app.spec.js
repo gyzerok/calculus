@@ -22,7 +22,10 @@ describe('app', () => {
 
       request(app)
         .get(`/calculus?query=${query}`)
-        .expect(200, { result: 3 })
+        .expect(200, {
+          error: false,
+          result: 3,
+        })
         .end(done);
     });
 
@@ -32,6 +35,7 @@ describe('app', () => {
       request(app)
         .get(`/calculus?query=${query}`)
         .expect(200, {
+          error: false,
           result: 3,
         })
         .end(done);
@@ -41,7 +45,8 @@ describe('app', () => {
       request(app)
         .get('/calculus')
         .expect(400, {
-          error: 'No query provided',
+          error: true,
+          message: 'No query provided',
         })
         .end(done);
     });

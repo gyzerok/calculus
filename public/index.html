@@ -39,7 +39,7 @@
           })
           .fail(function (res) {
             if (res.status === 400) {
-              return $result.text(res.responseJSON.error);
+              return $result.text(res.responseJSON.message);
             }
 
             $result.text('Unexpected error');
