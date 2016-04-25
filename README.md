@@ -1,5 +1,7 @@
 # Calculus
 
+![Build status](https://circleci.com/gh/gyzerok/calculus.svg?style=shield&circle-token=056dee4183ec830a949fbf0899e9053ae5e4572b)
+
 Here is a world changing service for simple math expressions evaluation.
 
 ## Try it!
