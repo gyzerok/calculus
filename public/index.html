@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Meet world changing computations!</title>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <input id="input" type="text" value="" style="width: 500px;" />
+    <button id="submit">submit</button>
+    <br />
+    <input id="base64" type="checkbox" /> Use base64
+    <div>
+      <span>Result: </span>
+      <span id="result"></span>
+    </div>
+    <script>
+      var $input = $('#input');
+      var $checkbox = $('#base64');
+      var $submit = $('#submit');
+      var $result = $('#result');
+
+      $submit.click(function () {
+        $result.text('');
+        var input = $input.val();
+
+
+        var opts = {
+          url: '/calculus',
+          data: {
+            query: $checkbox.prop('checked') ? btoa(input) : input
+          },
+          method: 'get'
+        };
+
+        $.ajax(opts)
+          .done(function onSuccess(data) {
+            $result.text(data.result);
+          })
+          .fail(function (res) {
+            if (res.status === 400) {
+              return $result.text(res.responseJSON.error);
+            }
+
+            $result.text('Unexpected error');
+          });
+
+      });
+    </script>
+  </body>
+</html>
