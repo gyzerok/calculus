@@ -98,7 +98,7 @@ function infixToPosfix(tokens) {
     }
 
     if (token === RPAREN) {
-      while (operatorStack.length && operatorStack[0] !== LPAREN) {
+      while (operatorStack.length > 0 && operatorStack[0] !== LPAREN) {
         rpn.push(operatorStack.shift());
       }
       const parensAreInvalid = operatorStack.length === 0;
@@ -111,7 +111,7 @@ function infixToPosfix(tokens) {
       continue;
     }
 
-    while (operatorStack.length && precedence[token] <= precedence[operatorStack[0]]) {
+    while (operatorStack.length > 0 && precedence[token] <= precedence[operatorStack[0]]) {
       rpn.push(operatorStack.shift());
     }
     operatorStack.unshift(token);
@@ -130,7 +130,7 @@ function infixToPosfix(tokens) {
 function execute(postfix) {
   const stackOfTemporalComputations = [];
 
-  while (postfix.length) {
+  while (postfix.length > 0) {
     const operatorOrNumber = postfix.shift();
 
     const isNumber = /\d/.test(operatorOrNumber);
