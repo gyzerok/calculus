@@ -128,28 +128,35 @@ function infixToPosfix(tokens) {
 }
 
 function execute(postfix) {
-  const stack = [];
+  const stackOfTemporalComputations = [];
+
   while (postfix.length) {
     const operatorOrNumber = postfix.shift();
 
     const isNumber = /\d/.test(operatorOrNumber);
     if (isNumber) {
-      stack.unshift(operatorOrNumber);
+      stackOfTemporalComputations.unshift(operatorOrNumber);
       continue;
     }
 
-    if (stack.length < 2) {
+    if (stackOfTemporalComputations.length < 2) {
       return {
         error: 'Invalid expression',
       };
     }
 
-    const y = +stack.shift();
-    const x = +stack.shift();
+    const y = +stackOfTemporalComputations.shift();
+    const x = +stackOfTemporalComputations.shift();
 
-    if (operatorOrNumber === PLUS) stack.unshift(x + y);
-    if (operatorOrNumber === MINUS) stack.unshift(x - y);
-    if (operatorOrNumber === MULTIPLY) stack.unshift(x * y);
+    if (operatorOrNumber === PLUS) {
+      stackOfTemporalComputations.unshift(x + y);
+    }
+    if (operatorOrNumber === MINUS) {
+      stackOfTemporalComputations.unshift(x - y);
+    }
+    if (operatorOrNumber === MULTIPLY) {
+      stackOfTemporalComputations.unshift(x * y);
+    }
     if (operatorOrNumber === DIVIDE) {
       if (y === 0) {
         return {
@@ -157,17 +164,17 @@ function execute(postfix) {
         };
       }
 
-      stack.unshift(x / y);
+      stackOfTemporalComputations.unshift(x / y);
     }
   }
 
-  if (stack.length !== 1) {
+  if (stackOfTemporalComputations.length !== 1) {
     return {
       error: 'Invalid expression',
     };
   }
 
   return {
-    result: stack.shift(),
+    result: stackOfTemporalComputations.shift(),
   };
 }
