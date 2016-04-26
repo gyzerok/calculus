@@ -3,13 +3,14 @@
 const path = require('path');
 const express = require('express');
 
+const cors = require('./middlewares/cors');
 const Calculator = require('./Calculator');
 
 
 const app = express();
 module.exports = app;
 
-app.get('/calculus', (req, res) => {
+app.get('/calculus', cors, (req, res) => {
   const input = req.query.query;
 
   if (!input) {
