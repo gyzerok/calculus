@@ -41,6 +41,13 @@ describe('app', () => {
         .end(done);
     });
 
+    it('should support CORS', done => {
+      request(app)
+        .get('/calculus')
+        .expect('Access-Control-Allow-Origin', /\*/)
+        .end(done);
+    });
+
     it('should return error if no query provided', done => {
       request(app)
         .get('/calculus')
